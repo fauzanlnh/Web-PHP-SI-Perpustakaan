@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>SIPAS | Form Pengembalian Buku</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -27,6 +28,7 @@
   <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="../../dist/img/AdminLTELogo.png" rel="shortcut icon">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed" onload="setTampilan()">
@@ -40,13 +42,13 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="Dashboard_Admin.php" class="nav-link">Home</a>
+          <a href="dashboard_admin.php" class="nav-link">Home</a>
         </li>
       </ul>
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="../../proses/P_Logout.php" class="nav-link">Logout</a>
+        <a class="nav-link">Sistem Informasi Perpustakaan</a>
         </li>
       </ul>
     </nav>
@@ -55,7 +57,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-rounded elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light">Perpustakaan</span>
       </a>
@@ -66,18 +68,20 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <?php
             session_start();
+            if($_SESSION['status'] != 'Login'){
+              header("location:../v_login.php?pesan=HarusLogin");
+            }
             include '../../connection/koneksi.php';
             $data = mysqli_query($koneksi,"select * from t_pegawai where username = '".$_SESSION['username']."'"); 
             $cek = mysqli_num_rows($data);
             if($cek > 0){
             $data = mysqli_fetch_assoc($data);
           ?>
-          
           <div class="image">
-            <img src="../../dist/img/<?php echo $data['foto'] ?>" class="img-circle elevation-2" alt="User Image">  
+            <img src="../../dist/img/<?php echo $data['foto'] ?>" class="img-circle elevation-2" alt="User Image" width="128" heigh="128">  
           </div>
           <div class="info">
-            <a href="V_Ubah_Profile.php" class="d-block"><?php echo $data['nama_pegawai']?></a>
+            <a href="v_ubah_profile.php" class="d-block"><?php echo $data['nama_pegawai']?></a>
           </div>
           <?php
             }
@@ -90,7 +94,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-            <a href="Dashboard_Admin.php" class="nav-link">
+              <a href="dashboard_admin.php" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>Dashboard</p>
               </a>
@@ -105,13 +109,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Tambah_Anggota.php" class="nav-link">
+                  <a href="v_tambah_anggota.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Anggota</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_anggota.php" class="nav-link">
+                  <a href="v_data_anggota.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Anggota</p>
                   </a>
@@ -128,15 +132,33 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Tambah_Buku.php" class="nav-link">
+                  <a href="v_tambah_buku.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Buku</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_Buku.php" class="nav-link">
+                  <a href="v_tambah_kategori.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Form Kategori</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="v_data_buku.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Buku</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="v_data_buku_hilang.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Buku Hilang/Rusak</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="v_data_kategori.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Kategori</p>
                   </a>
                 </li>
               </ul>
@@ -151,27 +173,39 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Tambah_Peminjaman.php" class="nav-link">
+                  <a href="v_tambah_peminjaman.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Peminjaman</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Pengembalian</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_Peminjaman.php" class="nav-link">
+                  <a href="v_data_peminjaman.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Peminjaman</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_Pengembalian.php" class="nav-link">
+                  <a href="v_data_pengembalian.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Pengembalian</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="v_data_pengembalian_denda.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Pengembalian Bayar</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="v_data_pengembalian_gantibuku.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pengembalian Ganti Buku</p>
                   </a>
                 </li>
               </ul>
@@ -186,24 +220,32 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Ubah_Profile.php" class="nav-link">
+                  <a href="v_ubah_profile.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Ubah Profile</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Tambah_User.php" class="nav-link">
+                  <a href="v_tambah_user.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tambah User</p>
+                    <p>Tambah Pegawai</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Ganti_Password.php" class="nav-link">
+                  <a href="v_data_pegawai.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Ganti Password</p>
+                    <p>Data Pegawai</p>
                   </a>
                 </li>
               </ul>
+            </li>
+            <li class="nav-item has-treeview">
+            <a href="../../proses/P_Logout.php"  class="nav-link" onclick="return confirm('Anda Akan Logout')">
+                <i class="nav-icon fas fa-lock"></i>
+                  <p>
+                  Logout
+                </p>
+              </a>
             </li>
           </ul>
         </nav>
@@ -223,8 +265,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="Dashboard_Admin.php">Home</a></li>
-                <li class="breadcrumb-item active">Form Pengembalian</li>
+                <li class="breadcrumb-item"><a href="dashboard_admin.php">Home</a></li>
+                <li class="breadcrumb-item active">Transaksi / Form Pengembalian</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -262,7 +304,7 @@
                     <select class="form-control select2" style="width: 100%;" name="Kd_Peminjaman">
                       <?php
                         include '../connection/koneksi.php';
-                        $Data = mysqli_query($koneksi, "SELECT * FROM T_Peminjaman WHERE Status_Peminjaman = 'DIPINJAM'");
+                        $Data = mysqli_query($koneksi, "SELECT * FROM t_peminjaman WHERE Status_Peminjaman = 'DIPINJAM'");
                         while($result = mysqli_fetch_array($Data)){
                       ?>
                       <option value="<?php echo $result['Kd_Peminjaman'];?>"> <?php echo $result['Kd_Peminjaman'] .""?></option>
@@ -294,12 +336,8 @@
                             <option>Hilang - Ganti Dengan Buku Baru</option>
                             <option selected>Hilang - Ganti Dengan Uang</option>";
                           }
-                        }else if($pesan=="MasihKosong"){
-                          if($_SESSION['CaraPengembalian'] == 'Buku Dikembalikan'){
-                            echo"<option selected>Buku Dikembalikan</option>  
-                            <option>Hilang - Ganti Dengan Buku Baru</option>
-                            <option>Hilang - Ganti Dengan Uang</option>";
-                          }else if($_SESSION['CaraPengembalian'] == 'Hilang - Ganti Dengan Buku Baru'){
+                        }else if($pesan=="MasihKosong" ||$pesan == "MasihKosong2"){
+                          if($_SESSION['CaraPengembalian'] == 'Hilang - Ganti Dengan Buku Baru'){
                             echo"<option>Buku Dikembalikan</option>  
                             <option selected>Hilang - Ganti Dengan Buku Baru</option>
                             <option>Hilang - Ganti Dengan Uang</option>";
@@ -307,6 +345,10 @@
                             echo"<option>Buku Dikembalikan</option>  
                             <option>Hilang - Ganti Dengan Buku Baru</option>
                             <option selected>Hilang - Ganti Dengan Uang</option>";
+                          }else{
+                            echo"<option selected>Buku Dikembalikan</option>  
+                            <option>Hilang - Ganti Dengan Buku Baru</option>
+                            <option>Hilang - Ganti Dengan Uang</option>";
                           }
                         }
                       }else{
@@ -335,9 +377,14 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan=="PilihKdPeminjaman"){
-                          echo"<label for='exampleInputPassword1'>Kode Anggota</label>
-                              <input type='text' class='form-control' id='exampleInputPassword1' name='Kd_Anggota' value='".$_SESSION['setKdAnggota']."' readonly>";
+                        if($pesan=="PilihKdPeminjaman" || $pesan == "MasihKosong2"){
+                          if(isset($_SESSION['setKdAnggota'])){
+                            echo"<label for='exampleInputPassword1'>Kode Anggota</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' name='Kd_Anggota' value='".$_SESSION['setKdAnggota']."' readonly>";
+                          }else{
+                            echo"<label for='exampleInputPassword1'>Kode Anggota</label>
+                          <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Kode Anggota' name='Kd_Anggota' readonly>";
+                          }
                         }else{
                           echo"<label for='exampleInputPassword1'>Kode Anggota</label>
                           <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Kode Anggota' name='Kd_Anggota' readonly>";
@@ -352,9 +399,14 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan=="PilihKdPeminjaman"){
-                          echo"<label for='exampleInputPassword1'>Kode Buku</label>
-                          <input type='text' class='form-control' id='exampleInputPassword1' name='Kd_Buku' value='".$_SESSION['setKdBuku']."' readonly>";
+                        if($pesan=="PilihKdPeminjaman" || $pesan == "MasihKosong2"){
+                          if(isset($_SESSION['setKdBuku'])){
+                            echo"<label for='exampleInputPassword1'>Kode Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' name='Kd_Buku' value='".$_SESSION['setKdBuku']."' readonly>";
+                          }else{
+                            echo"<label for='exampleInputPassword1'>Kode Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Kode Buku' name='Kd_Buku' readonly>";
+                          }
                         }else{
                           echo"<label for='exampleInputPassword1'>Kode Buku</label>
                               <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Kode Buku' name='Kd_Buku' readonly>";
@@ -369,9 +421,14 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan=="PilihKdPeminjaman"){
-                          echo"<label for='exampleInputPassword1'>Judul Buku</label>
-                          <input type='text' class='form-control' id='exampleInputPassword1' name='Jdl_Buku' value='".$_SESSION['setJudul']."' readonly>";
+                        if($pesan=="PilihKdPeminjaman" || $pesan == "MasihKosong2"){
+                          if(isset($_SESSION['setJudul'])){
+                            echo"<label for='exampleInputPassword1'>Judul Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' name='Jdl_Buku' value='".$_SESSION['setJudul']."' readonly>";
+                          }else{
+                            echo"<label for='exampleInputPassword1'>Judul Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku' name='Jdl_Buku' readonly>";
+                          }
                         }else{
                           echo"<label for='exampleInputPassword1'>Judul Buku</label>
                           <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku' name='Jdl_Buku' readonly>";
@@ -386,9 +443,14 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan=="PilihKdPeminjaman"){
-                          echo"<label for='exampleInputPassword1'>Harga Buku</label>
-                          <input type='text' class='form-control' id='exampleInputPassword1' name='Harga_Buku' value='".$_SESSION['setHarga']."' readonly>";
+                        if($pesan=="PilihKdPeminjaman" || $pesan == "MasihKosong2"){
+                          if(isset($_SESSION['setHarga'])){
+                            echo"<label for='exampleInputPassword1'>Harga Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' name='Harga_Buku' value='".$_SESSION['setHarga']."' readonly>";
+                          }else{
+                            echo"<label for='exampleInputPassword1'>Harga Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Harga Buku' name='Harga_Buku' readonly>";
+                          }
                         }else{
                           echo"<label for='exampleInputPassword1'>Harga Buku</label>
                           <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Harga Buku' name='Harga_Buku' readonly>";
@@ -403,9 +465,14 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan=="PilihKdPeminjaman"){
-                          echo"<label for='exampleInputPassword1'>Telat Pengembalian</label>
-                          <input type='text' class='form-control' id='exampleInputPassword1' name='Telat' value='".$_SESSION['setTelat']."' readonly>";
+                        if($pesan=="PilihKdPeminjaman" ||$pesan == "MasihKosong2"){
+                          if(isset($_SESSION['setTelat'])){
+                            echo"<label for='exampleInputPassword1'>Telat Pengembalian</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' name='Telat' value='".$_SESSION['setTelat']."' readonly>";
+                          }else{
+                            echo"<label for='exampleInputPassword1'>Telat Pengembalian</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Keterlambatan Pengembalian' name='Telat' readonly>";  
+                          }
                         }else{
                           echo"<label for='exampleInputPassword1'>Telat Pengembalian</label>
                           <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Keterlambatan Pengembalian' name='Telat' readonly>";
@@ -420,9 +487,14 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan=="PilihKdPeminjaman"){
-                          echo"<label for='exampleInputPassword1'>Denda</label>
-                          <input type='text' class='form-control' id='exampleInputPassword1' name='Denda' value='".$_SESSION['setDenda']."' readonly>";
+                        if($pesan=="PilihKdPeminjaman" ||$pesan == "MasihKosong2"){
+                          if(isset($_SESSION['setDenda'])){
+                            echo"<label for='exampleInputPassword1'>Denda</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' name='Denda' value='".$_SESSION['setDenda']."' readonly>";
+                          }else{
+                            echo"<label for='exampleInputPassword1'>Denda</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Denda Keterlambatan' name='Denda' readonly>";  
+                          }
                         }else{
                           echo"<label for='exampleInputPassword1'>Denda</label>
                           <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Denda Keterlambatan' name='Denda' readonly>";
@@ -442,7 +514,6 @@
             <div class="card-footer">
                   <button type="submit" class="btn btn-primary" name="Simpan">Submit</button>
           </div>
-          </form>
           </div>
           <!-- /.card-body -->          
         </div>
@@ -461,33 +532,38 @@
                       <div class="form-group">
                     <?php
                       include "../../connection/koneksi.php";
-                      $Data = mysqli_query($koneksi,"SELECT (Kd_Buku) FROM T_Buku ORDER BY Kd_Buku DESC LIMIT 1");
+                      $Data = mysqli_query($koneksi,"SELECT (Kd_Buku) FROM t_buku ORDER BY Kd_Buku DESC LIMIT 1");
                       if($result = mysqli_fetch_array($Data)){
                         $Kd_Buku= $result['Kd_Buku'] +1;
                       }
                     ?>
                     <label for="exampleInputKd">Kode Buku</label>
-                    <input type="text" class="form-control" id="exampleInputKd" value="<?php echo $Kd_Buku?>" name="Kd_Buku" readonly>
+                    <input type="text" class="form-control" id="exampleInputKd" value="<?php echo $Kd_Buku?>" name="Kd_Buku_Baru" readonly>
                   </div>
                   <div class="form-group">
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
+                        if($pesan == "MasihKosong2"){
                           if(empty($_SESSION['Jdl_Buku'])){
                             echo"<label for='inputError1'>Judul Buku</label>
-                            <input type='text' class='form-control is-invalid' id='inputError1' placeholder='Masukkan Judul Buku' name='Jdl_Buku'>";
+                            <input type='text' class='form-control is-invalid' id='inputError1' placeholder='Masukkan Judul Buku' name='Jdl_Buku_Baru'>";
                           }else{
                             echo"<label for='exampleInputPassword1'>Judul Buku</label>
-                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku1' name='Jdl_Buku' value = '".$_SESSION['Jdl_Buku']."''>";  
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku1' name='Jdl_Buku_Baru' value = '".$_SESSION['Jdl_Buku']."''>";  
                           }
                         }else if($pesan == 'PilihKdPeminjaman'){
-                          echo"<label for='exampleInputPassword1'>Judul Buku</label>
-                          <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku1' name='Jdl_Buku' value = '".$_SESSION['Jdl_Buku']."''>";
+                          if(isset($_SESSION['Jdl_Buku'])){
+                            echo"<label for='exampleInputPassword1'>Judul Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku1' name='Jdl_Buku_Baru' value = '".$_SESSION['Jdl_Buku']."''>";
+                          }else{
+                            echo"<label for='exampleInputPassword1'>Judul Buku</label>
+                            <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku' name='Jdl_Buku_Baru'>";
+                          }
                         }
                       }else{
                         echo"<label for='exampleInputPassword1'>Judul Buku</label>
-                        <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku' name='Jdl_Buku'>";
+                        <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Judul Buku' name='Jdl_Buku_Baru'>";
                       }
                     ?>
                   </div>
@@ -495,21 +571,26 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
+                        if($pesan == "MasihKosong2"){
                           if(empty($_SESSION['Nm_Pengarang'])){
                             echo"<label for='inputError2'>Nama Pengarang</label>
-                            <input type='text' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang'>";
+                            <input type='text' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang_Baru'>";
                           }else{
                             echo"<label for='exampleInputEmail'>Nama Pengarang</label>
-                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang'value=".$_SESSION['Nm_Pengarang'].">";
+                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang_Baru'value='".$_SESSION['Nm_Pengarang']."'>";
                           }
                         }else if($pesan == 'PilihKdPeminjaman'){
-                          echo"<label for='exampleInputEmail'>Nama Pengarang</label>
-                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang'value=".$_SESSION['Nm_Pengarang'].">";
+                          if(isset($_SESSION['Nm_Pengarang'])){
+                            echo"<label for='exampleInputEmail'>Nama Pengarang</label>
+                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang_Baru'value='".$_SESSION['Nm_Pengarang']."'>";
+                          }else{
+                            echo"<label for='exampleInputEmail'>Nama Pengarang</label>
+                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang_Baru'>";    
+                          }
                         }
                       }else{
                         echo"<label for='exampleInputEmail'>Nama Pengarang</label>
-                        <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang'>";
+                        <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Pengarang' name='Nm_Pengarang_Baru'>";
                       }
                     ?>
                   </div>
@@ -517,40 +598,45 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
+                        if($pesan == "MasihKosong2"){
                           if(empty($_SESSION['Nm_Penerbit'])){
                             echo"<label for='inputError2'>Nama Penerbit</label>
-                            <input type='text' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit'>";
+                            <input type='text' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit_Baru'>";
                           }else{
                             echo"<label for='exampleInputEmail'>Nama Penerbit</label>
-                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit'value=".$_SESSION['Nm_Penerbit'].">";
+                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit_Baru'value='".$_SESSION['Nm_Penerbit']."'>";
                           }
                         }else if($pesan == 'PilihKdPeminjaman'){
-                          echo"<label for='exampleInputEmail'>Nama Penerbit</label>
-                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit'value=".$_SESSION['Nm_Penerbit'].">";
+                          if(isset($_SESSION['Nm_Penerbit'])){
+                            echo"<label for='exampleInputEmail'>Nama Penerbit</label>
+                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit_Baru'value='".$_SESSION['Nm_Penerbit']."'>";
+                          }else{
+                            echo"<label for='exampleInputEmail'>Nama Penerbit</label>
+                            <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit_Baru'>";
+                          }
                         }
                       }else{
                         echo"<label for='exampleInputEmail'>Nama Penerbit</label>
-                        <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit'>";
+                        <input type='text' class='form-control' id='exampleInputEmail' placeholder='Masukkan Nama Penerbit' name='Nm_Penerbit_Baru'>";
                       }
                     ?>
                   </div>
                   <div class="form-group">
                     <label>Kategori Buku</label>
-                    <select class="form-control select2" style="width: 100%;" name="Kategori_Buku">
+                    <select class="form-control select2" style="width: 100%;" name="Kategori_Buku_Baru">
                       <?php
                         include '../connection/koneksi.php';
-                        $Data = mysqli_query($koneksi, "SELECT * FROM T_Kategori_buku");
+                        $Data = mysqli_query($koneksi, "SELECT * FROM t_kategori_buku");
                         while($result = mysqli_fetch_array($Data)){
                           if(isset($_GET['pesan'])){                   
                             $pesan = $_GET['pesan'];
-                            if($pesan == "MasihKosong"){
+                            if($pesan == "MasihKosong2"){
                               if(empty($_SESSION['Kategori_Buku'])){
                                 echo"<option value='".$result['Kd_Kategori']."'>";
                                 echo $result['Nama_Kategori'];
                                 echo"</option>";
                               }else{
-                                if($_SESSION['Kategori_Buku'] ==$result['Kd_Kategori']){
+                                if($_SESSION['Kategori_Buku'] == $result['Kd_Kategori']){
                                   $select="selected";
                                 }else{
                                   $select="";
@@ -560,7 +646,7 @@
                                   echo"</option>";
                               }
                             }else{
-                              if($_SESSION['Kategori_Buku'] ==$result['Kd_Kategori']){
+                              if($_SESSION['Kategori_Buku'] == $result['Kd_Kategori']){
                                 $select="selected";
                               }else{
                                 $select="";
@@ -582,21 +668,26 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
+                        if($pesan == "MasihKosong2"){
                           if(empty($_SESSION['Thn_Terbit'])){
                             echo"<label for='inputError2'>Tahun Terbit</label>
-                            <input type='number' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit' min='1900' max='2100' >";
+                            <input type='number' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit_Baru' min='1900' max='2100' >";
                           }else{
                             echo"<label for='exampleInputEmail'>Tahun Terbit</label>
-                            <input type='number'class='form-control' id='exampleInputEmail' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit' value=".$_SESSION['Thn_Terbit']." min='1900' max='2100' >";
+                            <input type='number'class='form-control' id='exampleInputEmail' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit_Baru' value=".$_SESSION['Thn_Terbit']." min='1900' max='2100' >";
                           }
                         }else if($pesan == 'PilihKdPeminjaman'){
-                          echo"<label for='exampleInputEmail'>Tahun Terbit</label>
-                            <input type='number'class='form-control' id='exampleInputEmail' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit' value=".$_SESSION['Thn_Terbit']." min='1900' max='2100' >";
+                          if(isset($_SESSION['Thn_Terbit'])){
+                            echo"<label for='exampleInputEmail'>Tahun Terbit</label>
+                            <input type='number'class='form-control' id='exampleInputEmail' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit_Baru' value=".$_SESSION['Thn_Terbit']." min='1900' max='2100' >";
+                          }else{
+                            echo"<label for='exampleInputEmail'>Tahun Terbit</label>
+                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit_Baru'min = '1900' max='2100'>";
+                          }
                         }
                       }else{
                         echo"<label for='exampleInputEmail'>Tahun Terbit</label>
-                        <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit'min = '1900' max='2100'>";
+                        <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Tahun Terbit' name='Thn_Terbit_Baru'min = '1900' max='2100'>";
                       }
                     ?>
                   </div>
@@ -604,21 +695,26 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
+                        if($pesan == "MasihKosong2"){
                           if(empty($_SESSION['No_Rak'])){
                             echo"<label for='inputError2'>No Rak</label>
-                            <input type='number' class='form-control is-invalid' id='inputError2' placeholder='Masukkan No Rak' name='No_Rak' min='1' max='30' >";
+                            <input type='number' class='form-control is-invalid' id='inputError2' placeholder='Masukkan No Rak' name='No_Rak_Baru' min='1' max='30' >";
                           }else{
                             echo"<label for='exampleInputEmail'>No Rak</label>
-                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan No Rak' name='No_Rak'value=".$_SESSION['No_Rak']." min='1' max='30' >";
+                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan No Rak' name='No_Rak_Baru'value=".$_SESSION['No_Rak']." min='1' max='30' >";
                           }
                         }else if($pesan == 'PilihKdPeminjaman'){
-                          echo"<label for='exampleInputEmail'>No Rak</label>
-                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan No Rak' name='No_Rak'value=".$_SESSION['No_Rak']." min='1' max='30' >";
+                          if(isset($_SESSION['No_Rak'])){
+                            echo"<label for='exampleInputEmail'>No Rak</label>
+                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan No Rak' name='No_Rak_Baru'value=".$_SESSION['No_Rak']." min='1' max='30' >";
+                          }else{
+                            echo"<label for='exampleInputEmail'>No Rak</label>
+                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan No Rak' name='No_Rak_Baru' min='1' max='30' >";    
+                          }
                         }
                       }else{
                         echo"<label for='exampleInputEmail'>No Rak</label>
-                        <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan No Rak' name='No_Rak' min='1' max='30' >";
+                        <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan No Rak' name='No_Rak_Baru' min='1' max='30' >";
                       }
                     ?>
                   </div>
@@ -626,26 +722,31 @@
                     <?php
                       if(isset($_GET['pesan'])){
                         $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
-                          if(empty($_SESSION['No_Rak'])){
+                        if($pesan == "MasihKosong2"){
+                          if(empty($_SESSION['Harga'])){
                             echo"<label for='inputError2'>Harga</label>
-                            <input type='number' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Harga' name='Harga'>";
+                            <input type='number' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Harga' name='Harga_Baru'>";
                           }else{
                             echo"<label for='exampleInputEmail'>Harga</label>
-                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Harga' name='Harga'value=".$_SESSION['Harga'].">";
+                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Harga' name='Harga_Baru'value=".$_SESSION['Harga'].">";
                           }
                         }else if($pesan == 'PilihKdPeminjaman'){
-                          echo"<label for='exampleInputEmail'>Harga</label>
-                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Harga' name='Harga'value=".$_SESSION['Harga'].">";
+                          if(empty($_SESSION['Harga'])){
+                            echo"<label for='inputError2'>Harga</label>
+                            <input type='number' class='form-control' id='inputError2' placeholder='Masukkan Harga' name='Harga_Baru'>";
+                          }else{
+                            echo"<label for='exampleInputEmail'>Harga</label>
+                            <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Harga' name='Harga_Baru'value=".$_SESSION['Harga'].">";
+                          }
                         }
                       }else{
                         echo"<label for='exampleInputEmail'>Harga</label>
-                        <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Harga' name='Harga'>";
+                        <input type='number' class='form-control' id='exampleInputEmail' placeholder='Masukkan Harga' name='Harga_Baru'>";
                       }
                     ?>
                   </div>
                   </div>
-
+                  </form>
         <!-- /.card -->
       </section>
       <!-- /.content -->

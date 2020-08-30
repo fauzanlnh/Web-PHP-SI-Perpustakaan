@@ -6,27 +6,26 @@
         $_SESSION['Kd_Kategori'] = $Kd_Kategori;
         $_SESSION['Nm_Kategori'] = $Nm_Kategori;
         if(empty($Kd_Kategori) || empty($Nm_Kategori)){
-            header('location:../Views/Admin/V_Tambah_Kategori.php?pesan=MasihKosong');
+            header('location:../views/admin/b_tambah_kategori.php?pesan=MasihKosong');
             //echo $_SESSION['Kd_Kategori'];
         }else{
-            $Data = mysqli_query($koneksi,"SELECT * FROM T_Kategori_Buku WHERE Kd_Kategori = '$Kd_Kategori'");
+            include '../connection/koneksi.php';
+            $Data = mysqli_query($koneksi,"SELECT * FROM t_kategori_buku WHERE Kd_Kategori = '$Kd_Kategori'");
             $cek = mysqli_num_rows($Data);
-            if($cek == 0){
-                header('location:../Views/Admin/V_Tambah_Kategori.php?pesan=KdAda');
+            if($cek == 1){
+                header('location:../views/admin/v_tambah_kategori.php?pesan=KdAda');
             }else{
-                include '../connection/koneksi.php';
                 unset($_SESSION['Kd_Kategori']);
                 unset($_SESSION['Nm_Kategori']);
-                include "../../connection/koneksi.php";
-                $query2 = "INSERT INTO T_Kategori_Buku VALUES(                
+                $query2 = "INSERT INTO t_kategori_buku VALUES(                
                     '$Kd_Kategori',
                     '$Nm_Kategori'
                 )";
                 $cek2 = mysqli_query($koneksi, $query2);
                 if($cek2==1){
-                    header('location:../Views/Admin/V_Data_Kategori.php?pesan=input');
+                    header('location:../views/admin/v_data_kategori.php?pesan=input');
                 } else {
-                    header('location:../Views/Admin/V_Tambah_Kategori.php?pesan=gagal');
+                    header('location:../views/admin/v_tambah_kategori.php?pesan=gagal');
                 }   
             }
         }

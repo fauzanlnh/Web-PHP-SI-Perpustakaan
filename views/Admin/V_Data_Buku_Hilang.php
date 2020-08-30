@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | DataTables</title>
+  <title>SIPAS | Data Buku Hilang</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="../../dist/img/AdminLTELogo.png" rel="shortcut icon">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
@@ -30,13 +31,13 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="Dashboard_Admin.php" class="nav-link">Home</a>
+          <a href="dashboard_admin.php" class="nav-link">Home</a>
         </li>
       </ul>
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="../../proses/P_Logout.php" class="nav-link">Logout</a>
+          <a class="nav-link">Sistem Informasi Perpustakaan</a>
         </li>
       </ul>
     </nav>
@@ -45,7 +46,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-rounded elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light">Perpustakaan</span>
       </a>
@@ -56,31 +57,33 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <?php
             session_start();
+            if($_SESSION['status'] != 'Login'){
+              header("location:../v_login.php?pesan=HarusLogin");
+            }
             include '../../connection/koneksi.php';
             $data = mysqli_query($koneksi,"select * from t_pegawai where username = '".$_SESSION['username']."'"); 
             $cek = mysqli_num_rows($data);
             if($cek > 0){
             $data = mysqli_fetch_assoc($data);
           ?>
-          
           <div class="image">
-            <img src="../../dist/img/<?php echo $data['foto'] ?>" class="img-circle elevation-2" alt="User Image">  
+            <img src="../../dist/img/<?php echo $data['foto'] ?>" class="img-circle elevation-2" alt="User Image" width="128" heigh="128">  
           </div>
           <div class="info">
-            <a href="V_Ubah_Profile.php" class="d-block"><?php echo $data['nama_pegawai']?></a>
+            <a href="v_ubah_profile.php" class="d-block"><?php echo $data['nama_pegawai']?></a>
           </div>
           <?php
             }
           ?>
         </div>
 
-      <!-- Sidebar Menu -->
+        <!-- Sidebar Menu -->
       <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="Dashboard_Admin.php" class="nav-link">
+              <a href="dashboard_admin.php" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>Dashboard</p>
               </a>
@@ -95,13 +98,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Tambah_Anggota.php" class="nav-link">
+                  <a href="v_tambah_anggota.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Anggota</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_anggota.php" class="nav-link">
+                  <a href="v_data_anggota.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Anggota</p>
                   </a>
@@ -118,31 +121,31 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Tambah_Buku.php" class="nav-link">
+                  <a href="v_tambah_buku.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Buku</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Tambah_Kategori.php" class="nav-link">
+                  <a href="v_tambah_kategori.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Kategori</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_Buku.php" class="nav-link">
+                  <a href="v_data_buku.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Buku</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="#" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Buku Hilang/Rusak</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_Kategori.php" class="nav-link">
+                  <a href="v_data_kategori.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Kategori</p>
                   </a>
@@ -159,27 +162,39 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Tambah_Peminjaman.php" class="nav-link">
+                  <a href="v_tambah_peminjaman.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Peminjaman</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Tambah_Pengembalian.php" class="nav-link">
+                  <a href="v_tambah_pengembalian.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Form Pengembalian</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_Peminjaman.php" class="nav-link">
+                  <a href="v_data_peminjaman.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Peminjaman</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Data_Pengembalian.php" class="nav-link">
+                  <a href="v_data_pengembalian.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Pengembalian</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="v_data_pengembalian_denda.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Pengembalian Bayar</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="v_data_pengembalian_gantibuku.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pengembalian Ganti Buku</p>
                   </a>
                 </li>
               </ul>
@@ -194,31 +209,39 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="V_Ubah_Profile.php" class="nav-link">
+                  <a href="v_ubah_profile.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Ubah Profile</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Tambah_User.php" class="nav-link">
+                  <a href="v_tambah_user.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tambah User</p>
+                    <p>Tambah Pegawai</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="V_Ganti_Password.php" class="nav-link">
+                  <a href="v_data_pegawai.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Ubah Password Akun Lain</p>
+                    <p>Data Pegawai</p>
                   </a>
                 </li>
               </ul>
+            </li>
+            <li class="nav-item has-treeview">
+            <a href="../../proses/P_Logout.php"  class="nav-link" onclick="return confirm('Anda Akan Logout')">
+                <i class="nav-icon fas fa-lock"></i>
+                  <p>
+                  Logout
+                </p>
+              </a>
             </li>
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
-  </aside>
+    </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -227,12 +250,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Buku</h1>
+            <h1>Data Buku Hilang Atau Rusak</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Data Buku</li>
+              <li class="breadcrumb-item"><a href="dashboard_admin.php">Home</a></li>
+              <li class="breadcrumb-item active">Buku / Data Buku Hilang Atau Rusak</li>
             </ol>
           </div>
         </div>
@@ -246,10 +269,35 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Data buku yang dimiliki</h3>
+                <h3 class="card-title">Data buku Hilang Atau Rusak</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+              <?php 
+                  if(isset($_GET['pesan'])){
+                    $pesan = $_GET['pesan'];
+                    if($pesan == "input"){
+                      echo "<div class='alert alert-success' role='alert'>Data berhasil di masukkan.
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                            </button></div>";
+                    }else if($pesan == "update"){
+                            echo "<div class='alert alert-primary' role='alert'>Data berhasil di ubah.
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                            </button></div>";
+                    }else if($pesan == "hapus"){
+                            echo "<div class='alert alert-danger' role='alert'>Data berhasil di hapus.
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                          </button></div>";
+                    }
+                  }
+              ?>
+                <button class = "btn btn-success"> <a href="../../proses/P_export_databukuhilang.php" class="nav-link" style="color:white">Export Ke Excel</a></button>
+                <div>
+                </div>
+                <br>
                 <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -264,7 +312,7 @@
                   <tbody>
                   <?php
                     include "../../connection/koneksi.php";
-                    $Data = mysqli_query($koneksi,"SELECT * from t_buku WHERE Status != 'TERSEDIA' OR STATUS != 'DIPINJAM'");
+                    $Data = mysqli_query($koneksi,"SELECT * from t_buku WHERE Status = 'HILANG' OR STATUS = 'RUSAK'");
                     $No = 0;
                     while($result = mysqli_fetch_array($Data)){
                       $No++;
@@ -282,10 +330,10 @@
                     <td><?php echo $Status?></td>
                     <td>
                       <a class="btn btn-warning"
-                        href="V_Ubah_Anggota.php?Kd_Buku=<?php echo $result['Kd_Buku']; ?>"><i
+                        href="v_ubah_buku.php?Kd_Buku=<?php echo $result['Kd_Buku']; ?>"><i
                         value="Edit">Edit</a>
                       <a class="btn btn-danger"
-                        href="../../Proses/P_Kasir_DeleteAnggota.php?Kd_Buku=<?php echo $result['Kd_Buku']; ?>" value="Delete">Delete</a>
+                        href="../../proses/P_DeleteBuku.php?Kd_Buku=<?php echo $result['Kd_Buku']; ?>" value="Delete" onclick="return confirm('Hapus Buku, Akan Menghapus Data Peminjaman dan Data Pengembalian')">Delete</a>
                     </td>
                   </tr>
                   <?php

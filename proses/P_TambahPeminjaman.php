@@ -10,18 +10,18 @@
         $_SESSION['Tanggal'] = $Tanggal_PHP;
         $_SESSION['Kd_Buku'] = $Kd_Buku;
         if(empty($Kd_Anggota) || $Tanggal_PHP == '1970-01-01'){
-            header('location:../Views/Admin/V_Tambah_Peminjaman.php?pesan=MasihKosong');
+            header('location:../views/admin/v_tambah_peminjaman.php?pesan=MasihKosong');
         }else{
             include '../connection/koneksi.php';
-            $Data = mysqli_query($koneksi,"SELECT * FROM T_Anggota WHERE Kd_Anggota = '$Kd_Anggota'");
+            $Data = mysqli_query($koneksi,"SELECT * FROM t_anggota WHERE Kd_Anggota = '$Kd_Anggota'");
             $cek = mysqli_num_rows($Data);
             if($cek < 1){
-                header('location:../Views/Admin/V_Tambah_Peminjaman.php?pesan=KdTidakAda');
+                header('location:../views/admin/v_tambah_peminjaman.php?pesan=KdTidakAda');
             }else{
                 unset($_SESSION['Kd_Anggota']);
                 unset($_SESSION['Kd_Peminjaman']);
                 unset($_SESSION['Kd_Buku']);
-                $query2 = "INSERT INTO T_Peminjaman (Kd_Peminjaman, Kd_Buku, Kd_Anggota, Tgl_Pinjam, EstimasiPengembalian, Status_Peminjaman) VALUES(
+                $query2 = "INSERT INTO t_peminjaman (Kd_Peminjaman, Kd_Buku, Kd_Anggota, Tgl_Pinjam, EstimasiPengembalian, Status_Peminjaman) VALUES(
                     '$Kd_Peminjaman',
                     '$Kd_Buku',
                     '$Kd_Anggota',
@@ -30,12 +30,12 @@
                     'DIPINJAM'
                 )";
                 $cek2 = mysqli_query($koneksi, $query2);
-                $query3 = "UPDATE T_Buku SET STATUS = 'DIPINJAM', Estimasi_Pengembalian = ('$Tanggal_PHP' + INTERVAL 7 DAY) WHERE Kd_Buku = '$Kd_Buku'";
+                $query3 = "UPDATE t_buku SET STATUS = 'DIPINJAM', Estimasi_Pengembalian = ('$Tanggal_PHP' + INTERVAL 7 DAY) WHERE Kd_Buku = '$Kd_Buku'";
                 $cek3 = mysqli_query($koneksi, $query3);
                 if($cek2==1 && $cek3 ==1){
-                    header('location:../Views/Admin/V_Data_Peminjaman.php?pesan=input');
+                    header('location:../views/admin/v_data_peminjaman.php?pesan=input');
                 } else {
-                    //header('location:../Views/Admin/V_Tambah_Peminjaman.php?pesan=gagal');
+                    //header('location:../views/admin/v_tambah_peminjaman.php?pesan=gagal');
                     echo $query2;
                     echo $query3;
                 }   
