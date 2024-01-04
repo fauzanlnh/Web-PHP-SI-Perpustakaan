@@ -10,11 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('return_payment_books', function (Blueprint $table) {
-            $table->id();
-            $table->string('loan_id', 20);
-            $table->date('replacement_date');
-            $table->integer('replacement_fine');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->string('id', 6)->primary();
+            $table->string('name', 30);
             $table->timestamps();
         });
     }
@@ -24,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('return_payment_books');
+        Schema::dropIfExists('categories');
     }
 };
