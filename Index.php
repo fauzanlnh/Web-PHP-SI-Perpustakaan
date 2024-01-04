@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | DataTables</title>
+  <title>SIPAS | Index</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="../dist/img/AdminLTELogo.png" rel="shortcut icon">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -33,7 +34,7 @@
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="Views/V_Login.html" class="nav-link">Login</a>
+          <a href="views/V_Login.php" class="nav-link">Login</a>
         </li>
       </ul>
     </nav>
@@ -54,7 +55,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Index</a></li>
               <li class="breadcrumb-item active"></li>
             </ol>
           </div>

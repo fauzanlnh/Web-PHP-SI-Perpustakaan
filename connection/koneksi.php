@@ -1,5 +1,5 @@
 <?php 
-	$koneksi = mysqli_connect("localhost","root","","db_kuliah_atol_perpustakaan");
+	$koneksi = mysqli_connect("localhost","root","","db_web_atol_perpustakaan");
 	// Check connection
 	if (mysqli_connect_errno()){
 		echo "Koneksi database gagal : " . mysqli_connect_error();

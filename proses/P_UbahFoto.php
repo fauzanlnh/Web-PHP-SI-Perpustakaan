@@ -14,8 +14,8 @@
                 $temp = explode(".", $_FILES["foto"]["name"]);
                 $namafoto = $kd_pegawai. '.' .end($temp);
                 $file = $namafoto;
-                if(file_exists('your-filename.ext')) {
-                    unlink($namafoto); //remove the file
+                if(file_exists($path."".$file)) {
+                    unlink($file); //remove the file
                 }
                 $upload = move_uploaded_file($foto['tmp_name'], $path . $namafoto);
                 if(!$upload){
@@ -26,7 +26,6 @@
                     $query = "UPDATE t_pegawai SET Foto = '$file' WHERE kd_pegawai ='$kd_pegawai'";
                     $cek = mysqli_query($koneksi, $query);
                     header('location:../views/admin/v_ubah_profile.php?pesan=fotoubah');
-                    echo$Username;
                 }
                 unset($_SESSION['nFoto']);
             }   

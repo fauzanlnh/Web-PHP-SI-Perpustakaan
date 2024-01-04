@@ -47,7 +47,7 @@
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link">Sistem Informasi Perpustakaan</a>
+          <a class="nav-link">Sistem Informasi Perpustakaan</a>
         </li>
       </ul>
     </nav>
@@ -56,34 +56,33 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-rounded elevation-3"
-          style="opacity: .8">
+        <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-rounded elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Perpustakaan</span>
       </a>
 
-     <!-- Sidebar -->
-     <div class="sidebar">
+      <!-- Sidebar -->
+      <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <?php
-            session_start();
-            if($_SESSION['status'] != 'Login'){
-              header("location:../v_login.php?pesan=HarusLogin");
-            }
-            include '../../connection/koneksi.php';
-            $data = mysqli_query($koneksi,"select * from t_pegawai where username = '".$_SESSION['username']."'"); 
-            $cek = mysqli_num_rows($data);
-            if($cek > 0){
+          session_start();
+          if ($_SESSION['status'] != 'Login') {
+            header("location:../v_login.php?pesan=HarusLogin");
+          }
+          include '../../connection/koneksi.php';
+          $data = mysqli_query($koneksi, "select * from t_pegawai where username = '" . $_SESSION['username'] . "'");
+          $cek = mysqli_num_rows($data);
+          if ($cek > 0) {
             $data = mysqli_fetch_assoc($data);
           ?>
-          <div class="image">
-            <img src="../../dist/img/<?php echo $data['foto'] ?>" class="img-circle elevation-2" alt="User Image" width="128" heigh="128">  
-          </div>
-          <div class="info">
-            <a href="v_ubah_profile.php" class="d-block"><?php echo $data['nama_pegawai']?></a>
-          </div>
+            <div class="image">
+              <img src="../../dist/img/<?php echo $data['foto'] ?>" class="img-circle elevation-2" alt="User Image" width="128" heigh="128">
+            </div>
+            <div class="info">
+              <a href="v_ubah_profile.php" class="d-block"><?php echo $data['nama_pegawai'] ?></a>
+            </div>
           <?php
-            }
+          }
           ?>
         </div>
 
@@ -239,9 +238,9 @@
               </ul>
             </li>
             <li class="nav-item has-treeview">
-            <a href="../../proses/P_Logout.php"  class="nav-link" onclick="return confirm('Anda Akan Logout')">
+              <a href="../../proses/P_Logout.php" class="nav-link" onclick="return confirm('Anda Akan Logout')">
                 <i class="nav-icon fas fa-lock"></i>
-                  <p>
+                <p>
                   Logout
                 </p>
               </a>
@@ -275,153 +274,153 @@
 
       <!-- Main content -->
       <section class="content">
-      <div class="container-fluid">
-      <div class="card card-default">
-          <div class="card-header">
-            <h3 class="card-title">Form ubah pegawai</h3>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-              <form role="form" method="post" action="../../proses/P_UbahPegawai.php" enctype="multipart/form-data">
-                <div class="card-body">
-                  <div class="form-group">
-                    <?php
-                    if(empty($_GET['pesan'])){
-                      include "../../connection/koneksi.php";
-                        $kd_pegawai = $_GET['kd_pegawai'];
-                        $Query = "SELECT * FROM t_pegawai JOIN t_master USING(username) WHERE kd_pegawai ='$kd_pegawai'";
-                        $Data = mysqli_query($koneksi, $Query);
-                        if($result = mysqli_fetch_array($Data)){
-                          $kd_pegawai = $result['kd_pegawai'];
-                          $nama_pegawai = $result['nama_pegawai'];
-                          $Email = $result['email'];
-                          $Username = $result['username'];
-                          $Password = $result['Password'];
+        <div class="container-fluid">
+          <div class="card card-default">
+            <div class="card-header">
+              <h3 class="card-title">Form ubah pegawai</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <form role="form" method="post" action="../../proses/P_UbahPegawai.php" enctype="multipart/form-data">
+                    <div class="card-body">
+                      <div class="form-group">
+                        <?php
+                        if (empty($_GET['pesan'])) {
+                          include "../../connection/koneksi.php";
+                          $kd_pegawai = $_GET['kd_pegawai'];
+                          $Query = "SELECT * FROM t_pegawai JOIN t_master USING(username) WHERE kd_pegawai ='$kd_pegawai'";
+                          $Data = mysqli_query($koneksi, $Query);
+                          if ($result = mysqli_fetch_array($Data)) {
+                            $kd_pegawai = $result['kd_pegawai'];
+                            $nama_pegawai = $result['nama_pegawai'];
+                            $Email = $result['email'];
+                            $Username = $result['username'];
+                            $Password = $result['Password'];
+                          }
+                        } else {
+                          $kd_pegawai = "" . $_SESSION['kd_pegawai'];
                         }
-                      }else{
-                        $kd_pegawai = "".$_SESSION['kd_pegawai'];
-                      }
-                    ?>
-                    <label for="exampleInputKd">Kode Pegawai</label>
-                    <input type="text" class="form-control" id="exampleInputKd" value="<?php echo $kd_pegawai?>" name="kd_pegawai" readonly>
-                  </div>
-                  <div class="form-group">
-                    <?php
-                      if(isset($_GET['pesan'])){
-                        $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
-                          if(empty($_SESSION['nama_pegawai'])){
-                            echo"<label for='inputError1'>Nama Pegawai</label>
+                        ?>
+                        <label for="exampleInputKd">Kode Pegawai</label>
+                        <input type="text" class="form-control" id="exampleInputKd" value="<?php echo $kd_pegawai ?>" name="kd_pegawai" readonly>
+                      </div>
+                      <div class="form-group">
+                        <?php
+                        if (isset($_GET['pesan'])) {
+                          $pesan = $_GET['pesan'];
+                          if ($pesan == "MasihKosong") {
+                            if (empty($_SESSION['nama_pegawai'])) {
+                              echo "<label for='inputError1'>Nama Pegawai</label>
                             <input type='text' class='form-control is-invalid' id='inputError1' placeholder='Masukkan Nama Pegawai' name='nama_pegawai' pattern='[A-Za-z ]+' title='Hanya Boleh Memasukkan Huruf'>";
-                          }else{
-                            echo"<label for='exampleInputPassword1'>Nama Pegawai</label>
-                            <input type='text' class='form-control' pattern='[A-Za-z ]+' title='Hanya Boleh Memasukkan Huruf' id='exampleInputPassword1' placeholder='Masukkan Nama Anggota' name='nama_pegawai' value= '".$_SESSION['nama_pegawai']."''>";
+                            } else {
+                              echo "<label for='exampleInputPassword1'>Nama Pegawai</label>
+                            <input type='text' class='form-control' pattern='[A-Za-z ]+' title='Hanya Boleh Memasukkan Huruf' id='exampleInputPassword1' placeholder='Masukkan Nama Anggota' name='nama_pegawai' value= '" . $_SESSION['nama_pegawai'] . "''>";
+                            }
                           }
-                        }
-                      }else{
-                        echo"<label for='exampleInputPassword1'>Nama Pegawai</label>
+                        } else {
+                          echo "<label for='exampleInputPassword1'>Nama Pegawai</label>
                         <input type='text' class='form-control' id='exampleInputPassword1' placeholder='Masukkan Nama Pegawai' name='nama_pegawai' value='$nama_pegawai' pattern='[A-Za-z ]+' title='Hanya Boleh Memasukkan Huruf'>";
-                      }
-                    ?>
-                  </div>
-                  <div class="form-group">
-                    <?php
-                      if(isset($_GET['pesan'])){
-                        $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
-                          if(empty($_SESSION['Email'])){
-                            echo"<label for='inputError2'>Email Anggota</label>
+                        }
+                        ?>
+                      </div>
+                      <div class="form-group">
+                        <?php
+                        if (isset($_GET['pesan'])) {
+                          $pesan = $_GET['pesan'];
+                          if ($pesan == "MasihKosong") {
+                            if (empty($_SESSION['Email'])) {
+                              echo "<label for='inputError2'>Email Anggota</label>
                             <input type='email' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Email Anggota' name='Email'>";
-                          }else{
-                            echo"<label for='exampleInputEmail'>Email Anggota</label>
-                            <input type='email' class='form-control' id='exampleInputEmail' placeholder='Masukkan Email Anggota' name='Email'value=".$_SESSION['Email'].">";
+                            } else {
+                              echo "<label for='exampleInputEmail'>Email Anggota</label>
+                            <input type='email' class='form-control' id='exampleInputEmail' placeholder='Masukkan Email Anggota' name='Email'value=" . $_SESSION['Email'] . ">";
+                            }
                           }
-                        }
-                      }else{
-                        echo"<label for='exampleInputEmail'>Email Anggota</label>
+                        } else {
+                          echo "<label for='exampleInputEmail'>Email Anggota</label>
                         <input type='email' class='form-control' id='exampleInputEmail' placeholder='Masukkan Email Anggota' name='Email' value=$Email>";
-                      }
-                    ?>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword3">Username</label>
-                    <input type="text" class="form-control" id="exampleInputPassword3" name="Username" readonly value='<?php echo $kd_pegawai?>'>
-                  </div>
-                  <div class="form-group">
-                  <?php
-                      if(isset($_GET['pesan'])){
-                        $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
-                          if(empty($_SESSION['Email'])){
-                            echo"<label for='exampleInputEmail'>Password</label>
-                            <input type='password' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Password Untuk Merubah Password' name='Password'>";
-                          }else{
-                            echo"<label for='exampleInputEmail'>Password</label>
-                            <input type='password' class='form-control' id='exampleInputEmail' placeholder='Masukkan Password Untuk Merubah Password' name='Password'value=".$_SESSION['Password'].">";
-                          }
                         }
-                      }else{
-                        echo"<label for='exampleInputEmail'>Password</label>
+                        ?>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword3">Username</label>
+                        <input type="text" class="form-control" id="exampleInputPassword3" name="Username" readonly value='<?php echo $kd_pegawai ?>'>
+                      </div>
+                      <div class="form-group">
+                        <?php
+                        if (isset($_GET['pesan'])) {
+                          $pesan = $_GET['pesan'];
+                          if ($pesan == "MasihKosong") {
+                            if (empty($_SESSION['Email'])) {
+                              echo "<label for='exampleInputEmail'>Password</label>
+                            <input type='password' class='form-control is-invalid' id='inputError2' placeholder='Masukkan Password Untuk Merubah Password' name='Password'>";
+                            } else {
+                              echo "<label for='exampleInputEmail'>Password</label>
+                            <input type='password' class='form-control' id='exampleInputEmail' placeholder='Masukkan Password Untuk Merubah Password' name='Password'value=" . $_SESSION['Password'] . ">";
+                            }
+                          }
+                        } else {
+                          echo "<label for='exampleInputEmail'>Password</label>
                         <input type='password' class='form-control' id='exampleInputEmail' placeholder='Masukkan Password Untuk Merubah Password' name='Password'";
-                      }
-                    ?>
-                  </div>
-                  <div class="form-group">
-                  <?php
-                      if(isset($_GET['pesan'])){
-                        $pesan = $_GET['pesan'];
-                        if($pesan == "MasihKosong"){
-                          echo"<label for='exampleInputFile'>File input</label>
+                        }
+                        ?>
+                      </div>
+                      <div class="form-group">
+                        <?php
+                        if (isset($_GET['pesan'])) {
+                          $pesan = $_GET['pesan'];
+                          if ($pesan == "MasihKosong") {
+                            echo "<label for='exampleInputFile'>File input</label>
                           <div class='input-group'>
                             <div class='custom-file'>
                               <input type='file' class='custom-file-input is-invalid' id='exampleInputFile' name='foto'>
                               <label class='custom-file-label' for='exampleInputFile'>Choose file</label>
                             </div>
                           </div>";
-                        }else{
-                          echo"<label for='exampleInputFile'>File input</label>
+                          } else {
+                            echo "<label for='exampleInputFile'>File input</label>
                           <br>Pilih Gambar Kembali Untuk Antisipasi
                           <div class='input-group'>
                             <div class='custom-file'>
                               <input type='file' class='custom-file-input' id='exampleInputFile' name='foto'>
-                              <label class='custom-file-label' for='exampleInputFile'>".$_SESSION['nFoto']."</label>
+                              <label class='custom-file-label' for='exampleInputFile'>" . $_SESSION['nFoto'] . "</label>
+
                             </div>
                           </div>";
-                        }
-                      }else{
-                        echo"<label for='exampleInputFile'>File input</label>
+                          }
+                        } else {
+                          echo "<label for='exampleInputFile'>File input</label>
                         <div class='input-group'>
                           <div class='custom-file'>
                             <input type='file' class='custom-file-input' id='exampleInputFile' name='foto'>
                             <label class='custom-file-label' for='exampleInputFile'>Choose file</label>
                           </div>
                         </div>";
-                      }
-                    ?>
-                  </div>
+                        }
+                        ?>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
               </div>
+              <!-- /.row -->
             </div>
-            <!-- /.row -->
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
           </div>
-          <!-- /.card-body -->
-          <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-          </form>
-        </div>
-        <!-- /.card -->
+          <!-- /.card -->
       </section>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
     <footer class="main-footer">
-      <strong>Copyright &copy; Fauzan Lukmanul Hakim | Template AdminLTE V3.0.5 By <a
-          href="http://adminlte.io">AdminLTE.io</a>.</strong>
+      <strong>Copyright &copy; Fauzan Lukmanul Hakim | Template AdminLTE V3.0.5 By <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0
@@ -443,12 +442,12 @@
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button)
-    $(document).ready(function () {
+    $(document).ready(function() {
       bsCustomFileInput.init();
     });
   </script>
   <!-- bs-custom-file-input -->
-<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+  <script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
