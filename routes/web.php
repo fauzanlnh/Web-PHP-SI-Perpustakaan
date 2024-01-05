@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Models\User;
-use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +27,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::prefix('staff')->group(function () {
         Route::get('/', function () {
-            // ddd('hello');
             $user = User::with('staff')->firstOrFail();
             return view('staff.index', ['user' => $user]);
-        });
+        })->name('staff-index');
+
+        route::resource('author', AuthorController::class);
     });
 });

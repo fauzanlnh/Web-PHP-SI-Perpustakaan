@@ -12,13 +12,11 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                {{-- <img src="{{ asset('storage/dist/img/' . $user['foto']) }}" class="img-circle elevation-2" alt="User Image"
-                width="128" heigh="128"> --}}
-                <img src="{{ $user->staff->photo }}" class="img-circle elevation-2" alt="User Image" width="128"
-                    heigh="128">
+                <img src="{{ auth()->user()->staff->photo }}" class="img-circle elevation-2" alt="User Image"
+                    width="128" heigh="128">
             </div>
             <div class="info">
-                <a href="V_Ubah_Profile.php" class="d-block">{{ $user->staff->name }}</a>
+                <a href="" class="d-block">{{ auth()->user()->staff->name }}</a>
             </div>
         </div>
 
@@ -29,10 +27,33 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="{{ route('staff-index') }}" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href='#' class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Author
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('author.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Author</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="V_Tambah_Anggota.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tambah Author</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -184,7 +205,7 @@
                                     onclick="return confirm('Anda Akan Logout')" style="color: #c3c5cb">
 
                                     <i class="nav-icon fas fa-lock"></i>
-                                    <p >
+                                    <p>
                                         Logout
                                     </p>
 
