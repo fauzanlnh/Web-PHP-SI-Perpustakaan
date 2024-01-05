@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,5 +33,6 @@ Route::middleware(['auth'])->group(function () {
         })->name('staff-index');
 
         route::resource('author', AuthorController::class);
+        route::resource('category', CategoryController::class);
     });
 });
