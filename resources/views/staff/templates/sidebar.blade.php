@@ -174,14 +174,24 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="../../proses/P_Logout.php" class="nav-link"
-                        onclick="return confirm('Anda Akan Logout')">
-                        <i class="nav-icon fas fa-lock"></i>
-                        <p>
-                            Logout
-                        </p>
-                    </a>
+
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="nav-link btn btn-link btn-block text-left"
+                                    onclick="return confirm('Anda Akan Logout')" style="color: #c3c5cb">
+
+                                    <i class="nav-icon fas fa-lock"></i>
+                                    <p >
+                                        Logout
+                                    </p>
+
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </li>
             </ul>
         </nav>
