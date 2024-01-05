@@ -22,10 +22,10 @@ class ReturnReplaceBookSeeder extends Seeder
             // Assuming 'loan_id' refers to the 'id' column in 'loan_books' table
             $loanIds = DB::table('loan_books')->where('status', '=', 'pending')->pluck('id')->toArray();
             $loanId = $faker->randomElement($loanIds);
-            
+
             $loan = DB::table('loan_books')->where('id', $loanId)->first();
             $book = DB::table('books')->where('id', $loan->book_id)->first();
-            
+
 
             // Get the last book id for the same category
             $lastBookId = DB::table('books')
@@ -51,6 +51,7 @@ class ReturnReplaceBookSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'publication_date' => $faker->date,
                 'shelf_number' => $faker->bothify('??-###'),
+                'status' => 'Tersedia',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -63,7 +64,7 @@ class ReturnReplaceBookSeeder extends Seeder
                 'updated_at' => now(),
             ]);
 
-            DB::table('loan_books')->where('id', $loanId)->update(['status' => 'Lost']);
+            DB::table('loan_books')->where('id', $loanId)->update(['status' => 'Hilang']);
         }
     }
 }

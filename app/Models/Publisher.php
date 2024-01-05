@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReturnPaymentBook extends Model
+class Publisher extends Model
 {
     protected $guarded = ['id'];
-    public function loanBook()
+    public function book()
     {
-        return $this->belongsTo(LoanBook::class, 'loan_id', 'id');
+        return $this->hasMany(Book::class, 'publisher_id', 'id');
     }
 }

@@ -7,5 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoanBook extends Model
 {
-    use HasFactory;
+    public $incrementing = false;
+    protected $guarded = [''];
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id', 'id');
+    }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'member_id', 'id');
+    }
+
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class, 'staff_id', 'id');
+    }
+
+    public function returnPaymentBook()
+    {
+        return $this->hasMany(ReturnPaymentBook::class, 'loan_id', 'id');
+    }
+
+    public function returnReplaceBook()
+    {
+        return $this->hasMany(ReturnReplaceBook::class, 'loan_id', 'id');
+    }
 }

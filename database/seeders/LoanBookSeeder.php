@@ -33,7 +33,7 @@ class LoanBookSeeder extends Seeder
                 'return_date' => $currentDate->addDays(random_int(1, 30)),
                 'estimated_return_date' => $estimatedReturnDate,
                 'fine' => $faker->numberBetween(0, 100),
-                'status' => $faker->randomElement(['Pending', 'Returned', 'Overdue']),
+                'status' => $faker->randomElement(['Pending', 'Dikembalikan', 'Hilang']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

@@ -26,7 +26,7 @@ class ReturnPaymentBookSeeder extends Seeder
                 'updated_at' => now(),
             ]);
 
-            DB::table('loan_books')->where('id', $loanId)->update(['status' => 'Lost']);
+            DB::table('loan_books')->where('id', $loanId)->update(['status' => 'Hilang']);
         }
 
     }

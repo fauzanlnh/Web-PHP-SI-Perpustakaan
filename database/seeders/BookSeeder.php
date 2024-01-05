@@ -16,7 +16,7 @@ class BookSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 20) as $index) {
+        foreach (range(1, 50) as $index) {
             $authorId = $faker->numberBetween(1, 10);
             $publisherId = $faker->numberBetween(1, 10);
             $category = DB::table('categories')->inRandomOrder()->first();
@@ -25,11 +25,11 @@ class BookSeeder extends Seeder
             $lastBookId = DB::table('books')
                 ->where('category_id', $category->id)
                 ->max('id');
+
             if ($lastBookId) {
                 $lastBookId = explode('-', $lastBookId);
                 $lastBookId = $lastBookId[1];
-                Log::alert($lastBookId);
-            } 
+            }
 
             // Increment the index for the new book
             $newIndex = str_pad((int) $lastBookId + 1, 3, '0', STR_PAD_LEFT);
@@ -49,6 +49,7 @@ class BookSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'publication_date' => $faker->date,
                 'shelf_number' => $shelfNumber,
+                'status' => $faker->randomElement(['Hilang', 'Tersedia', 'Rusak', 'Dipinjam']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
