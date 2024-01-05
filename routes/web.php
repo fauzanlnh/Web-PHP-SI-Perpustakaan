@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublisherController;
 use App\Models\User;
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
             route::resource('category', CategoryController::class);
             route::resource('publisher', PublisherController::class);
         });
+        route::resource('book', BookController::class);
 
     });
 });

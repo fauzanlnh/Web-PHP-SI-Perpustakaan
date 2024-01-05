@@ -76,7 +76,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="V_Data_Buku.php" class="nav-link">
+                            <a href="{{ route('book.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Buku</p>
                             </a>
