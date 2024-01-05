@@ -85,7 +85,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="V_Data_Buku_Hilang.php"
+                            <a href="{{ route('book.lost') }}"
                                 class="nav-link {{ request()->is('staff/book/lost') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Buku Hilang/Rusak</p>

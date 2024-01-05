@@ -34,12 +34,14 @@ Route::middleware(['auth'])->group(function () {
             return view('staff.index', ['user' => $user]);
         })->name('staff-index');
 
+
         Route::prefix('book')->group(function () {
             route::resource('author', AuthorController::class);
             route::resource('category', CategoryController::class);
             route::resource('publisher', PublisherController::class);
+            route::get('/lost', [BookController::class, 'indexLost'])->name('book.lost');
+
         });
         route::resource('book', BookController::class);
-
     });
 });

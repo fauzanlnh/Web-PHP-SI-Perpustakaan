@@ -21,6 +21,11 @@ class BookController extends Controller
         return view('staff.book.index', ['books' => $books]);
     }
 
+    public function indexLost()
+    {
+        $books = Book::orderBy('category_id')->where('status', '!=', 'Tersedia')->where('status', '!=', 'Dipinjam')->get();
+        return view('staff.book.indexLost', ['books' => $books]);
+    }
     /**
      * Show the form for creating a new resource.
      */
