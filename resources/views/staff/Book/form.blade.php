@@ -11,7 +11,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('staff-index') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('book.index') }}">Buku</a></li>
-                        <li class="breadcrumb-item active">Tambah Buku</li>
+                        <li class="breadcrumb-item active">{{ isset($book) ? 'Ubah' : 'Tambah' }} Buku</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->

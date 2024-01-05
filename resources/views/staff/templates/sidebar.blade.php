@@ -28,7 +28,8 @@
        with font-awesome or any other icon font library -->
                 {{--  --}}
                 <li class="nav-item">
-                    <a href="{{ route('staff-index') }}" class="nav-link active">
+                    <a href="{{ route('staff-index') }}"
+                        class="nav-link {{ request()->routeIs('staff-index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -60,8 +61,8 @@
                 </li>
 
                 {{--  --}}
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                <li class="nav-item has-treeview {{ request()->is('staff/book*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('staff/book*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Buku
@@ -70,31 +71,36 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('author.index') }}" class="nav-link">
+                            <a href="{{ route('author.index') }}"
+                                class="nav-link {{ request()->is('staff/book/author*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Author</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('book.index') }}" class="nav-link">
+                            <a href="{{ route('book.index') }}"
+                                class="nav-link {{ request()->is('staff/book') || request()->is('staff/book/create') || request()->is('staff/book/*/edit') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Buku</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="V_Data_Buku_Hilang.php" class="nav-link">
+                            <a href="V_Data_Buku_Hilang.php"
+                                class="nav-link {{ request()->is('staff/book/lost') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Buku Hilang/Rusak</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('category.index') }}" class="nav-link">
+                            <a href="{{ route('category.index') }}"
+                                class="nav-link {{ request()->is('staff/book/category*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Kategori</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('publisher.index') }}" class="nav-link">
+                            <a href="{{ route('publisher.index') }}"
+                                class="nav-link {{ request()->is('staff/book/publisher*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Publisher</p>
                             </a>

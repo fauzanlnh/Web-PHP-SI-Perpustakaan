@@ -10,7 +10,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('staff-index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Kategori</li>
+                        <li class="breadcrumb-item"><a href="{{ route('category.index') }}">Kategori</a></li>
+                        <li class="breadcrumb-item active">{{ isset($category) ? 'Ubah' : 'Tambah' }} Kategori</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->

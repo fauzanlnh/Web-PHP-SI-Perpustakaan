@@ -57,7 +57,7 @@ class AuthorController extends Controller
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
             return redirect('/staff/author/create')->withErrors($e->errors())->withInput();
-
+            
         } catch (\Exception $e) {
             ddd($e);
             return redirect('/staff/author')->with('error', 'Author Gagal Ditambahkan');
