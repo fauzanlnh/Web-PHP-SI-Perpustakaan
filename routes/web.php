@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PublisherController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,7 +33,11 @@ Route::middleware(['auth'])->group(function () {
             return view('staff.index', ['user' => $user]);
         })->name('staff-index');
 
-        route::resource('author', AuthorController::class);
-        route::resource('category', CategoryController::class);
+        Route::prefix('book')->group(function () {
+            route::resource('author', AuthorController::class);
+            route::resource('category', CategoryController::class);
+            route::resource('publisher', PublisherController::class);
+        });
+
     });
 });
