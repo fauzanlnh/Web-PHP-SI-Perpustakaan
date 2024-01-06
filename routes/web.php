@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,7 @@ Route::post('/login-check', [AuthController::class, 'authenticate'])->name('logi
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::prefix('staff')->group(function () {
+    Route::prefix('admin')->group(function () {
         Route::get('/', function () {
             $user = User::with('staff')->firstOrFail();
             return view('staff.index', ['user' => $user]);
@@ -43,5 +44,8 @@ Route::middleware(['auth'])->group(function () {
 
         });
         route::resource('book', BookController::class);
+        route::resource('member', MemberController::class);
+
+
     });
 });

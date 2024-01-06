@@ -39,13 +39,13 @@ class CategoryController extends Controller
                 'id' => $request->id,
                 'name' => $request->name,
             ]);
-            return redirect('/staff/category')->with('success', 'Kategori Berhasil Ditambahkan');
+            return redirect('/admin/category')->with('success', 'Kategori Berhasil Ditambahkan');
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/category/create')->withErrors($e->errors())->withInput();
+            return redirect('/admin/category/create')->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/category')->with('error', 'Kategori Gagal Ditambahkan');
+            return redirect('/admin/category')->with('error', 'Kategori Gagal Ditambahkan');
         }
     }
 
@@ -79,13 +79,13 @@ class CategoryController extends Controller
                 'id' => $request->id,
                 'name' => $request->name,
             ]);
-            return redirect('/staff/category')->with('success', 'Kategori Berhasil Diubah');
+            return redirect('/admin/category')->with('success', 'Kategori Berhasil Diubah');
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/category/create')->withErrors($e->errors())->withInput();
+            return redirect('/admin/category/' . $category->id . '/edit')->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/category')->with('error', 'Kategori Gagal Diubah');
+            return redirect('/admin/category')->with('error', 'Kategori Gagal Diubah');
         }
     }
 
@@ -96,10 +96,10 @@ class CategoryController extends Controller
     {
         try {
             $category->delete();
-            return redirect('/staff/category')->with('success', 'Kategori Berhasil Dihapus');
+            return redirect('/admin/category')->with('success', 'Kategori Berhasil Dihapus');
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/category')->with('error', 'Kategori Gagal Dihapus');
+            return redirect('/admin/category')->with('error', 'Kategori Gagal Dihapus');
         }
     }
 }

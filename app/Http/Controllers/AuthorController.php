@@ -53,14 +53,14 @@ class AuthorController extends Controller
                 'birth_date' => $request->birth_date,
                 'country' => $request->country,
             ]);
-            return redirect('/staff/author')->with('success', 'Author Berhasil Ditambahkan');
+            return redirect('/admin/author')->with('success', 'Author Berhasil Ditambahkan');
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/author/create')->withErrors($e->errors())->withInput();
-            
+            return redirect('/admin/author/create')->withErrors($e->errors())->withInput();
+
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/author')->with('error', 'Author Gagal Ditambahkan');
+            return redirect('/admin/author')->with('error', 'Author Gagal Ditambahkan');
         }
     }
 
@@ -107,14 +107,14 @@ class AuthorController extends Controller
                 'birth_date' => $request->birth_date,
                 'country' => $request->country,
             ]);
-            return redirect('/staff/author')->with('success', 'Author Berhasil Diubah');
+            return redirect('/admin/author')->with('success', 'Author Berhasil Diubah');
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/author/edit')->withErrors($e->errors())->withInput();
+            return redirect('/admin/author/' . $author->id . '/edit')->withErrors($e->errors())->withInput();
 
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/author')->with('error', 'Author Gagal Diubah');
+            return redirect('/admin/author')->with('error', 'Author Gagal Diubah');
         }
     }
 
@@ -125,10 +125,10 @@ class AuthorController extends Controller
     {
         try {
             $author->delete();
-            return redirect('/staff/author')->with('success', 'Author Berhasil Diubah');
+            return redirect('/admin/author')->with('success', 'Author Berhasil Diubah');
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/author')->with('error', 'Author Gagal Diubah');
+            return redirect('/admin/author')->with('error', 'Author Gagal Diubah');
         }
     }
 }

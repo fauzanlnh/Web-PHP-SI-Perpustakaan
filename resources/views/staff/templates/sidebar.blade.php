@@ -36,33 +36,17 @@
                 </li>
 
                 {{--  --}}
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('member.index') }}"
+                        class="nav-link {{ request()->routeIs('admin/member*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Anggota
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                        <p>Anggota</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="V_Tambah_Anggota.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Form Anggota</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="V_Data_anggota.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Anggota</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
                 {{--  --}}
-                <li class="nav-item has-treeview {{ request()->is('staff/book*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('staff/book*') ? 'active' : '' }}">
+                <li class="nav-item has-treeview {{ request()->is('admin/book*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('admin/book*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Buku
@@ -72,35 +56,35 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('author.index') }}"
-                                class="nav-link {{ request()->is('staff/book/author*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('admin/book/author*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Author</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('book.index') }}"
-                                class="nav-link {{ request()->is('staff/book') || request()->is('staff/book/create') || request()->is('staff/book/*/edit') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('admin/book') || request()->is('admin/book/create') || request()->is('admin/book/*/edit') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Buku</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('book.lost') }}"
-                                class="nav-link {{ request()->is('staff/book/lost') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('admin/book/lost') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Buku Hilang/Rusak</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('category.index') }}"
-                                class="nav-link {{ request()->is('staff/book/category*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('admin/book/category*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Kategori</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('publisher.index') }}"
-                                class="nav-link {{ request()->is('staff/book/publisher*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('admin/book/publisher*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Publisher</p>
                             </a>

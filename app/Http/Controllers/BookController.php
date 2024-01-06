@@ -80,13 +80,13 @@ class BookController extends Controller
                     'status' => 'Tersedia'
                 ]);
             }
-            return redirect('/staff/book')->with('success', 'Buku Berhasil Ditambahkan');
+            return redirect('/admin/book')->with('success', 'Buku Berhasil Ditambahkan');
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/book/create')->withErrors($e->errors())->withInput();
+            return redirect('/admin/book/create')->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/book')->with('error', 'Buku Gagal Ditambahkan');
+            return redirect('/admin/book')->with('error', 'Buku Gagal Ditambahkan');
         }
     }
 
@@ -186,14 +186,14 @@ class BookController extends Controller
 
             }
             DB::commit();
-            return redirect('/staff/book')->with('success', 'Buku Berhasil Diubah');
+            return redirect('/admin/book')->with('success', 'Buku Berhasil Diubah');
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/book/create')->withErrors($e->errors())->withInput();
+            return redirect('/admin/book/' . $book->id . '/edit')->withErrors($e->errors())->withInput();
 
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/book')->with('error', 'Buku Gagal Ditambahkan');
+            return redirect('/admin/book')->with('error', 'Buku Gagal Ditambahkan');
         }
     }
 
@@ -204,10 +204,10 @@ class BookController extends Controller
     {
         try {
             $book->delete();
-            return redirect('/staff/book')->with('success', 'Buku Berhasil Dihapus');
+            return redirect('/admin/book')->with('success', 'Buku Berhasil Dihapus');
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/book')->with('error', 'Buku Gagal Dihapus');
+            return redirect('/admin/book')->with('error', 'Buku Gagal Dihapus');
         }
     }
 }

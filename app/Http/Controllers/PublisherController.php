@@ -40,14 +40,14 @@ class PublisherController extends Controller
                 'name' => $request->name,
                 'address' => $request->address,
             ]);
-            return redirect('/staff/book/publisher')->with('success', 'Penerbit Berhasil Ditambahkan');
+            return redirect('/admin/book/publisher')->with('success', 'Penerbit Berhasil Ditambahkan');
 
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/book/publisher/create')->withErrors($e->errors())->withInput();
+            return redirect('/admin/book/publisher/create')->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/book/publisher')->with('error', 'Penerbit Gagal Ditambahkan');
+            return redirect('/admin/book/publisher')->with('error', 'Penerbit Gagal Ditambahkan');
         }
     }
 
@@ -82,14 +82,14 @@ class PublisherController extends Controller
                 'name' => $request->name,
                 'address' => $request->address,
             ]);
-            return redirect('/staff/book/publisher')->with('success', 'Penerbit Berhasil Diubah');
+            return redirect('/admin/book/publisher')->with('success', 'Penerbit Berhasil Diubah');
 
         } catch (ValidationException $e) {
             // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/book/publisher/create')->withErrors($e->errors())->withInput();
+            return redirect('/admin/book/publisher/' . $publisher->id . '/edit')->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/book/publisher')->with('error', 'Penerbit Gagal Diubah');
+            return redirect('/admin/book/publisher')->with('error', 'Penerbit Gagal Diubah');
         }
     }
 
@@ -100,14 +100,10 @@ class PublisherController extends Controller
     {
         try {
             $publisher->delete();
-            return redirect('/staff/book/publisher')->with('success', 'Penerbit Berhasil Dihapus');
-
-        } catch (ValidationException $e) {
-            // If validation fails, return back to the form with the validation errors
-            return redirect('/staff/book/publisher/create')->withErrors($e->errors())->withInput();
+            return redirect('/admin/book/publisher')->with('success', 'Penerbit Berhasil Dihapus');
         } catch (\Exception $e) {
             ddd($e);
-            return redirect('/staff/book/publisher')->with('error', 'Penerbit Gagal Dihapus');
+            return redirect('/admin/book/publisher')->with('error', 'Penerbit Gagal Dihapus');
         }
     }
 }
