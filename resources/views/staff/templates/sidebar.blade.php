@@ -38,7 +38,7 @@
                 {{--  --}}
                 <li class="nav-item">
                     <a href="{{ route('member.index') }}"
-                        class="nav-link {{ request()->routeIs('admin/member*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('admin/member*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>Anggota</p>
                     </a>
@@ -91,6 +91,8 @@
                         </li>
                     </ul>
                 </li>
+
+                {{--  --}}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-plus-circle"></i>
@@ -138,36 +140,17 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cog"></i>
-                        <p>
-                            Setting
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+
+                {{--  --}}
+                <li class="nav-item">
+                    <a href="{{ route('staff.index') }}"
+                        class="nav-link {{ request()->is('admin/staff*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Pegawai</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="V_Ubah_Profile.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Ubah Profile</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="V_Tambah_User.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tambah Pegawai</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="V_Data_Pegawai.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pegawai</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
+                {{--  --}}
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf

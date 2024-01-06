@@ -131,6 +131,7 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         try {
+            Storage::delete($member->photo);
             $member->delete();
             return redirect('/admin/member')->with('success', 'Anggota Berhasil Dihapus');
         } catch (\Exception $e) {

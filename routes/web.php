@@ -4,6 +4,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\StaffController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -45,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
         });
         route::resource('book', BookController::class);
         route::resource('member', MemberController::class);
-
-
+        route::resource('staff', StaffController::class);
     });
 });
