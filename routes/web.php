@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoanBookController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\StaffController;
@@ -44,8 +45,29 @@ Route::middleware(['auth'])->group(function () {
             route::get('/lost', [BookController::class, 'indexLost'])->name('book.lost');
 
         });
+
         route::resource('book', BookController::class);
         route::resource('member', MemberController::class);
         route::resource('staff', StaffController::class);
+
+        Route::prefix('transaction')->group(function () {
+            // Index
+            route::get('borrowing-book', [LoanBookController::class, 'indexBorrowingBook'])->name('transaction.borrowing-book.index');
+            route::get('book-return', [LoanBookController::class, 'indexBookReturn'])->name('transaction.book-return.index');
+            route::get('lost-book-return-fine', [LoanBookController::class, 'indexLostBookReturnFine'])->name('transaction.lost-book-return-fine.index');
+            route::get('lost-book-return-replacing', [LoanBookController::class, 'indexLostBookReturnReplacing'])->name('transaction.lost-book-return-replacing.index');
+
+            // Form
+            route::get('borrowing-book/create', [LoanBookController::class, 'createBorrowingBook'])->name('transaction.borrowing-book.create');
+            route::get('borrowing-book/edit/{id}', [LoanBookController::class, 'editBorrowingBook'])->name('transaction.borrowing-book.edit');
+            route::get('book-return/create/{id}', [LoanBookController::class, 'createBookReturn'])->name('transaction.book-return.create-id');
+            route::get('book-return/create/', [LoanBookController::class, 'createBookReturn'])->name('transaction.book-return.create');
+
+            // 
+            route::post('borrowing-book/store', [LoanBookController::class, 'storeBorrowingBook'])->name('transaction.borrowing-book.store');
+            route::PATCH('borrowing-book/update/{id}', [LoanBookController::class, 'updateBorrowingBook'])->name('transaction.borrowing-book.update');
+            route::post('book-return/store/{id}', [LoanBookController::class, 'storeBookReturn'])->name('transaction.book-return.store-id');
+            route::post('book-return/store/', [LoanBookController::class, 'storeBookReturn'])->name('transaction.book-return.store');
+        });
     });
 });

@@ -24,9 +24,9 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-       with font-awesome or any other icon font library -->
-                {{--  --}}
+                <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+
+                {{--  nav index --}}
                 <li class="nav-item">
                     <a href="{{ route('staff-index') }}"
                         class="nav-link {{ request()->routeIs('staff-index') ? 'active' : '' }}">
@@ -35,7 +35,7 @@
                     </a>
                 </li>
 
-                {{--  --}}
+                {{--  nav member --}}
                 <li class="nav-item">
                     <a href="{{ route('member.index') }}"
                         class="nav-link {{ request()->is('admin/member*') ? 'active' : '' }}">
@@ -44,7 +44,7 @@
                     </a>
                 </li>
 
-                {{--  --}}
+                {{-- nav book --}}
                 <li class="nav-item has-treeview {{ request()->is('admin/book*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('admin/book*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-book"></i>
@@ -92,9 +92,9 @@
                     </ul>
                 </li>
 
-                {{--  --}}
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                {{-- nav transaction --}}
+                <li class="nav-item has-treeview  {{ request()->is('admin/transaction*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('admin/transaction*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-plus-circle"></i>
                         <p>
                             Transaksi
@@ -102,38 +102,30 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="V_Tambah_Peminjaman.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Form Peminjaman</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="V_Tambah_Pengembalian.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Form Pengembalian</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="V_Data_Peminjaman.php" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="{{ route('transaction.borrowing-book.index') }}"
+                                class="nav-link {{ request()->is('admin/transaction/borrowing-book*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Peminjaman</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="V_Data_Pengembalian.php" class="nav-link">
+                            <a href="{{ route('transaction.book-return.index') }}"
+                                class="nav-link {{ request()->is('admin/transaction/book-return*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Pengembalian</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="V_Data_Pengembalian_Denda.php" class="nav-link">
+                            <a href="{{ route('transaction.lost-book-return-fine.index') }}"
+                                class="nav-link {{ request()->is('admin/transaction/lost-book-return-fine') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Pengembalian Bayar</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="V_Data_Pengembalian_GantiBuku.php" class="nav-link">
+                            <a href="{{ route('transaction.lost-book-return-replacing.index') }}"
+                                class="nav-link {{ request()->is('admin/transaction/lost-book-return-replacing') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pengembalian Ganti Buku</p>
                             </a>
@@ -141,7 +133,7 @@
                     </ul>
                 </li>
 
-                {{--  --}}
+                {{-- nav staff --}}
                 <li class="nav-item">
                     <a href="{{ route('staff.index') }}"
                         class="nav-link {{ request()->is('admin/staff*') ? 'active' : '' }}">
@@ -150,7 +142,7 @@
                     </a>
                 </li>
 
-                {{--  --}}
+                {{-- nav logout --}}
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
