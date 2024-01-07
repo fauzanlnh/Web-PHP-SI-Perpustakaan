@@ -42,6 +42,7 @@ class ReturnReplaceBookSeeder extends Seeder
             // Formulate the new book id
             $newBookId = $book->category_id . '-' . $newIndex;
 
+
             DB::table('books')->insert([
                 'id' => $newBookId,
                 'author_id' => $book->author_id,
@@ -52,6 +53,7 @@ class ReturnReplaceBookSeeder extends Seeder
                 'publication_date' => $faker->date,
                 'shelf_number' => $faker->bothify('??-###'),
                 'status' => 'Tersedia',
+                'price' => $book->price,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -65,6 +67,7 @@ class ReturnReplaceBookSeeder extends Seeder
             ]);
 
             DB::table('loan_books')->where('id', $loanId)->update(['status' => 'Hilang']);
+
         }
     }
 }

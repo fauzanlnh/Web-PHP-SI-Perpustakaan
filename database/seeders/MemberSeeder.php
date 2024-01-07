@@ -17,7 +17,7 @@ class MemberSeeder extends Seeder
         $currentDate = now();
 
         foreach (range(1, 20) as $index) {
-            $formattedDate = $currentDate->format('Ymd');
+            $formattedDate = $currentDate->format('Ym');
             $uniqueCode = str_pad($index, 3, '0', STR_PAD_LEFT);
 
             DB::table('members')->insert([

@@ -49,6 +49,7 @@ class BookSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'publication_date' => $faker->date,
                 'shelf_number' => $shelfNumber,
+                'price' => $faker->numberBetween(30000, 500000),
                 'status' => $faker->randomElement(['Hilang', 'Tersedia', 'Rusak', 'Dipinjam']),
                 'created_at' => now(),
                 'updated_at' => now(),

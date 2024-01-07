@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('member_id', 15);
             $table->string('staff_id', 15);
             $table->date('loan_date');
-            $table->date('return_date');
+            $table->date('return_date')->nullable();
             $table->date('estimated_return_date');
             $table->integer('fine');
             $table->string('status', 20);

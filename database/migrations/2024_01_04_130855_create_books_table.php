@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('description');
             $table->date('publication_date');
             $table->string('shelf_number', 10);
+            $table->unsignedBigInteger('price');
             $table->string('status', 10);
             $table->timestamps();
         });

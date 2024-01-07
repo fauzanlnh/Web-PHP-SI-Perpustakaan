@@ -27,11 +27,11 @@ class LoanBook extends Model
 
     public function returnPaymentBook()
     {
-        return $this->hasMany(ReturnPaymentBook::class, 'loan_id', 'id');
+        return $this->hasOne(ReturnPaymentBook::class, 'loan_id', 'id');
     }
 
     public function returnReplaceBook()
     {
-        return $this->hasMany(ReturnReplaceBook::class, 'loan_id', 'id');
+        return $this->hasOne(ReturnReplaceBook::class, 'loan_id', 'id');
     }
 }
