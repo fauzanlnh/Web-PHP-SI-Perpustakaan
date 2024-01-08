@@ -124,14 +124,14 @@ This screenshot showcases a sample view of the SI Library application.
 
 #### Borrowing Book Transaction
 
-![Example View](./public/assets/img/readme/transaction-borrow-book-index.png)
-![Example View](./public/assets/img/readme/transaction-borrow-book-form.png)
+![Example View](./public/assets/img/readme/transaction-borrow-book-index.PNG)
+![Example View](./public/assets/img/readme/transaction-borrow-book-form.PNG)
 
 #### Returning Book Transaction
 
-![Example View](./public/assets/img/readme/transaction-return-book-index.png)
-![Example View](./public/assets/img/readme/transaction-return-book-form-1.png)
-![Example View](./public/assets/img/readme/transaction-return-book-form-2.png)
+![Example View](./public/assets/img/readme/transaction-return-book-index.PNG)
+![Example View](./public/assets/img/readme/transaction-return-book-form-1.PNG)
+![Example View](./public/assets/img/readme/transaction-return-book-form-2.PNG)
 
 ## Technologies Used
 
