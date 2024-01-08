@@ -1,66 +1,150 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# System Information Library
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This repository contains the source code for a System Information (SI) Cafe application. The application aims to provide a comprehensive system for managing cafe-related information, including orders, menus.
 
-## About Laravel
+## Installation Steps:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. **Clone Repository**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    ```bash
+    git clone -b laravel https://github.com/fauzanlnh/Web-SI-Perpustakaan.git
+    cd Web-SI-Perpustakaan
+    ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. **Install Dependencies**
 
-## Learning Laravel
+    ```bash
+    composer install
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    or
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    ```bash
+    composer update
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Setup or Create File .env**
 
-## Laravel Sponsors
+    ```bash
+    cp .env.example .env
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Generate APP_KEY in file .env**
 
-### Premium Partners
+    ```bash
+    php artisan key:generate
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+5. **Create Database**
 
-## Contributing
+    Set up a database for the application.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Migrate & Seed Database**
 
-## Code of Conduct
+    ```bash
+    php artisan migrate --seed
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Link folder storage to public folder**
 
-## Security Vulnerabilities
+    ```bash
+    php artisan storage:link
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8. **Run Local Server**
+    ```bash
+    php artisan serve
+    ```
+    Access the web application at http://localhost:8000.
+
+These instructions provide a step-by-step guide to set up the System Information Cafe application on a local environment. Make sure to follow each step carefully to ensure a successful installation.
+
+## Features
+
+### Books Management:
+
+-   Efficiently track and manage details of books in the bookstore.
+-   Add, edit, or remove books with ease.
+-   Keep information updated, including titles, authors, categories, and publishers.
+
+### Book Author Management:
+
+<!-- -   Manage information related to book authors seamlessly. -->
+
+-   Add new authors and update their details as needed.
+<!-- -   Associate authors with specific books for comprehensive tracking. -->
+
+### Book Categories Management:
+
+<!-- -   Organize books into different categories for better navigation. -->
+
+-   Create, edit, or delete book categories as the inventory evolves.
+<!-- -   Enhance user experience by providing well-defined book classifications. -->
+
+### Book Publishers Management:
+
+<!-- -   Keep track of book publishers and their details. -->
+
+-   Manage publishing houses efficiently by adding, editing, or removing entries.
+<!-- -   Associate publishers with respective books for comprehensive cataloging. -->
+
+### Borrowing Book Management:
+
+-   Streamline the process of borrowing books from the bookstore.
+-   Monitor and manage book loans, due dates, and return status.
+-   Enhance customer experience by providing a smooth borrowing process.
+
+### Members Management:
+
+-   Efficiently manage information about bookstore members.
+-   Add new members, update their details, and keep records organized.
+<!-- -   Facilitate communication with members for events, promotions, etc. -->
+
+### Staff Management:
+
+-   Manage staff members responsible for bookstore operations.
+-   Add, edit, or remove staff profiles with their respective roles.
+<!-- -   Monitor and assign tasks to staff members for optimal workflow. -->
+
+## Example View
+
+This screenshot showcases a sample view of the SI Library application.
+
+### Members Management View
+
+![Example View](./public/assets/img/readme/member-index.PNG)
+![Example View](./public/assets/img/readme/member-form.PNG)
+
+### Books Maangement View
+
+![Example View](./public/assets/img/readme/book-index.PNG)
+![Example View](./public/assets/img/readme/book-form.PNG)
+
+### Borrowing Book Management View View
+
+#### Borrowing Book Transaction
+
+![Example View](./public/assets/img/readme/transaction-borrow-book-index.png)
+![Example View](./public/assets/img/readme/transaction-borrow-book-form.png)
+
+#### Returning Book Transaction
+
+![Example View](./public/assets/img/readme/transaction-return-book-index.png)
+![Example View](./public/assets/img/readme/transaction-return-book-form-1.png)
+![Example View](./public/assets/img/readme/transaction-return-book-form-2.png)
+
+## Technologies Used
+
+-   **Laravel:** PHP framework for web application development.
+-   **Composer:** Dependency manager for PHP.
+-   **MySQL:** Relational database for storing application data.
+-   **Bootstrap:** Utility-first CSS framework for styling and layout.
+-   **AdminLTE:** A powerful open-source admin dashboard template based on Bootstrap.
+
+## Contributors
+
+-   [Fauzan Lukmanul Hakim](https://fauzanlnh.vercel.app)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE).
